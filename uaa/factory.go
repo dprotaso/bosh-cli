@@ -51,7 +51,7 @@ func (f Factory) httpClient(config Config) (Client, error) {
 		f.logger.Debug(f.logTag, "Using custom root CAs")
 	}
 
-	rawClient := httpclient.CreateDefaultClient(certPool)
+	rawClient := httpclient.CreateDefaultClientInsecureSkipVerify()
 	retryClient := httpclient.NewNetworkSafeRetryClient(rawClient, 5, 500*time.Millisecond, f.logger)
 
 	httpClient := httpclient.NewHTTPClient(retryClient, f.logger)
